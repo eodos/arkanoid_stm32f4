@@ -4,14 +4,17 @@
 #include "tft_lcd.h"
 #include "touch.h"
 
-//#include "structures.h"
+#include "structures.h"
+#include "collisions.h"
+#include "init.h"
+#include "draw.h"
 
 static void init_systick();
 static void delay_ms(uint32_t n);
 static volatile uint32_t msTicks; // counts 1 ms timeTicks
 
 extern u8 gImage_sil[];
-void tft_yaz(void);
+void tft_example(void);
 extern unsigned int xxx,yyy;
 extern unsigned char flag;
 
@@ -51,9 +54,9 @@ int main(void)
   touch_init();
   LCD_Clear(BLACK);
 
-  tft_yaz();
+  tft_example();
 
-  Read_Ads7846();
+  /*Read_Ads7846();
   Pen_Point.X0=(int)((Pen_Point.Y-103)/7.7);
   Pen_Point.Y0=(int)((Pen_Point.X-104)/5.56);
   if(Pen_Point.X0>240)
@@ -63,12 +66,19 @@ int main(void)
   if(Pen_Point.Y0>320)
   {
     Pen_Point.X0=320;
-  }
+  }*/
+
+  
+  paddle_t paddle;
+  ball_t ball;
+  brick_t bricks[20];
+  init_game(&ball, &paddle, &bricks);
+  draw_game(&ball, &paddle, &bricks);
 
   while(1)
   {
 
-    DON:
+    /*DON:
 
     Convert_Pos();
 
@@ -102,12 +112,12 @@ int main(void)
       Pixel(Pen_Point.X0,Pen_Point.Y0+1,YELLOW);
       Pixel(Pen_Point.X0+1,Pen_Point.Y0,YELLOW);
       Pixel(Pen_Point.X0+1,Pen_Point.Y0+1,YELLOW);
-    }
+    }*/
   }
 }
 
 
-void tft_yaz(void)
+void tft_example(void)
 {
   LCD_SetTextColor(GREEN);
   LCD_SetBackColor(LCD_COLOR_BLUE);

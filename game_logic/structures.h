@@ -1,25 +1,28 @@
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
 
+#include "stm32f4xx.h"
+
 #define LEFT_LIMIT 		0
 #define RIGHT_LIMIT		200
-#define LOWER_LIMIT	0
+#define LOWER_LIMIT		0
 #define UPPER_LIMIT		400
 
-#define BRICK_LENGTH	5
-#define BRICK_HEIGHT	3
+#define N_BRICKS		20
 
 typedef struct {
-	bool active = 1;
+	uint8_t active;
 	uint32_t x;
 	uint32_t y;
+	uint32_t length;
+	uint32_t height;
 } brick_t;
 
 typedef struct {
 	uint32_t x;
 	uint32_t y;
-	uint32_t height = 3; // Distance from the center of mass to the lower / upper limit of the brick
-	uint32_t length = 5; // Distance from the center of mass to the left / right limit of the brick
+	uint32_t length; // Distance from the center of mass to the left / right limit of the brick
+	uint32_t height; // Distance from the center of mass to the lower / upper limit of the brick
 } paddle_t;
 
 typedef struct {
@@ -27,7 +30,7 @@ typedef struct {
 	uint32_t y;
 	uint32_t vx;
 	uint32_t vy;
-	uint32_t radius = 3;
+	uint32_t radius;
 } ball_t;
 
 #endif /* STRUCTURES_H */

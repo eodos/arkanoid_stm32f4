@@ -7,6 +7,9 @@ SRCS += $(LCD_SRCS)
 TOUCH_SRCS = TOUCH/touch.c
 SRCS += $(TOUCH_SRCS)
 
+GAME_SRCS = game_logic/collisions.c game_logic/init.c game_logic/draw.c
+SRCS += $(GAME_SRCS)
+
 # Binary will be generated with this name (with .elf filename extension)
 PROJ_NAME=arkanoid
 
@@ -49,6 +52,7 @@ CFLAGS += -I$(STM_COMMON)/Libraries/STM32F4xx_StdPeriph_Driver/inc
 CFLAGS += -I$(STM_COMMON)/Libraries/Device/STM32F4xx/Include
 CFLAGS += -I LCD
 CFLAGS += -I TOUCH
+CFLAGS += -I game_logic
 
 
 
