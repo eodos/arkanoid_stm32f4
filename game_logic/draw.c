@@ -3,6 +3,9 @@
 
 void draw_game(ball_t *ball, paddle_t *paddle, brick_t **bricks)
 {
+	/* Erase screen */
+	LCD_Clear(BLACK);
+	
 	/* Draw ball */
 	LCD_DrawFullCircle(ball->x, ball->y, ball->radius);
 

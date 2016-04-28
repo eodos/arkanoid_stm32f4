@@ -4,11 +4,14 @@
 #include "stm32f4xx.h"
 
 #define LEFT_LIMIT 		0
-#define RIGHT_LIMIT		200
+#define RIGHT_LIMIT		240
 #define LOWER_LIMIT		0
-#define UPPER_LIMIT		400
+#define UPPER_LIMIT		320
 
-#define N_BRICKS		20
+#define N_BRICKS		21
+
+#define BRICK_LENGTH	15
+#define	BRICK_HEIGHT	5
 
 typedef struct {
 	uint8_t active;

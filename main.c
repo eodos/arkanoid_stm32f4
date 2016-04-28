@@ -69,11 +69,12 @@ int main(void)
   }*/
 
   
-  paddle_t paddle;
-  ball_t ball;
-  brick_t bricks[20];
-  init_game(&ball, &paddle, &bricks);
-  draw_game(&ball, &paddle, &bricks);
+  paddle_t *paddle;
+  ball_t *ball;
+  brick_t *bricks[N_BRICKS];
+  
+  init_game(&ball, &paddle, bricks);
+  draw_game(ball, paddle, bricks);
 
   while(1)
   {
