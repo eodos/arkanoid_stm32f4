@@ -7,7 +7,7 @@ SRCS += $(LCD_SRCS)
 TOUCH_SRCS = TOUCH/touch.c
 SRCS += $(TOUCH_SRCS)
 
-GAME_SRCS = game_logic/collisions.c game_logic/init.c game_logic/draw.c
+GAME_SRCS = game_logic/collisions.c game_logic/init.c game_logic/draw.c game_logic/timed_tasks.c game_logic/game.c
 SRCS += $(GAME_SRCS)
 
 # Binary will be generated with this name (with .elf filename extension)

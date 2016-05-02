@@ -4,10 +4,9 @@
 #include "tft_lcd.h"
 #include "touch.h"
 
-#include "structures.h"
-#include "collisions.h"
-#include "init.h"
-#include "draw.h"
+
+#include "timed_tasks.h"
+#include "game.h"
 
 static void init_systick();
 static void delay_ms(uint32_t n);
@@ -21,6 +20,11 @@ extern unsigned char flag;
 // SysTick Handler (Interrupt Service Routine for the System Tick interrupt)
 void SysTick_Handler(void){
   msTicks++;
+}
+
+float get_time()
+{
+  return 0.001*msTicks;
 }
 
 // initialize the system tick
@@ -52,9 +56,13 @@ int main(void)
   LCD_Init();
   Delay(0x3FFFFF);
   touch_init();
+
   LCD_Clear(BLACK);
 
-  tft_example();
+  LCD_SetTextColor(GREEN);
+  LCD_SetBackColor(LCD_COLOR_BLUE);
+  LCD_BackLight(100);
+
 
   /*Read_Ads7846();
   Pen_Point.X0=(int)((Pen_Point.Y-103)/7.7);
@@ -68,16 +76,12 @@ int main(void)
     Pen_Point.X0=320;
   }*/
 
-  
-  paddle_t *paddle;
-  ball_t *ball;
-  brick_t *bricks[N_BRICKS];
-  
-  init_game(&ball, &paddle, bricks);
-  draw_game(ball, paddle, bricks);
+  add_timed_task(update_game, 0.5);
 
   while(1)
   {
+    update();
+
 
     /*DON:
 
@@ -120,10 +124,6 @@ int main(void)
 
 void tft_example(void)
 {
-  LCD_SetTextColor(GREEN);
-  LCD_SetBackColor(LCD_COLOR_BLUE);
-  LCD_BackLight(100);
-
   LCD_StringLine(100,30, "David");
   LCD_StringLine(85,45, "Paul Pena");
   LCD_StringLine(30,80, "NEW YORK UNIVERSITY");
