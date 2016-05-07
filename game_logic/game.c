@@ -9,19 +9,41 @@ void update_game(void)
   	static ball_t *ball;
   	static brick_t *bricks[N_BRICKS];
 
+  	static uint32_t game_over = 0;
 	static uint32_t initialize = 1;
+	static uint32_t reset = 0;
+
 	if (initialize)
 	{  
   		init_game(&ball, &paddle, bricks);
+  		reset = 1;
   		initialize = 0;
+	}
+
+	if (reset)
+	{
+		reset_game(ball, paddle, bricks);
+		draw_game(ball, paddle, bricks);
+		wait(3);
+		reset = 0;
 	}
 
 	else
 	{
-		/* Testing */
+		/* Update position of the ball */
 		ball->x += ball->vx;
 		ball->y += ball->vy;
-	}
 
-	draw_game(ball, paddle, bricks);
+		/* Check collisions */
+		game_over = check_collisions(ball, paddle, bricks, N_BRICKS);
+
+		if (game_over)
+		{
+			wait(1);
+			reset = 1;
+			game_over = 0;
+		}
+
+		draw_game(ball, paddle, bricks);
+	}
 }

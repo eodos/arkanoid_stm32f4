@@ -76,7 +76,7 @@ int main(void)
     Pen_Point.X0=320;
   }*/
 
-  add_timed_task(update_game, 0.5);
+  add_timed_task(update_game, 0.1);
 
   while(1)
   {
