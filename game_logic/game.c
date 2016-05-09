@@ -44,6 +44,9 @@ void update_game(void)
 			game_over = 0;
 		}
 
+		/* Detect if all the blocks have been destroyed */
+		/* TODO */
+
 		draw_game(ball, paddle, bricks);
 	}
 }

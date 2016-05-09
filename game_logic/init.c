@@ -15,9 +15,9 @@ void reset_game(ball_t *ball, paddle_t *paddle, brick_t **bricks)
 
 	ball->radius = 3;
 	ball->x = paddle->x;
-	ball->y = paddle->y + paddle->height + ball->radius;
-	ball->vx = 5;
-	ball->vy = 5;
+	ball->y = paddle->y + paddle->height + ball->radius + 1;
+	ball->vx = 3;
+	ball->vy = 3;
 
 	for(i=0; i< N_BRICKS; i++)
 	{

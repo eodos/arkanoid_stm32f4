@@ -10,7 +10,7 @@ void draw_game(ball_t *ball, paddle_t *paddle, brick_t **bricks)
 	LCD_DrawFullCircle(ball->x, ball->y, ball->radius);
 
 	/* Draw paddle */
-	LCD_DrawRect(paddle->x - paddle->length, paddle->y - paddle->length, paddle->length * 2, paddle->height * 2);
+	LCD_DrawRect(paddle->x - paddle->length, paddle->y - paddle->height, paddle->length * 2, paddle->height * 2);
 
 	/* Draw bricks */
 	uint32_t i;
