@@ -2,6 +2,7 @@
 #include "collisions.h"
 #include "init.h"
 #include "draw.h"
+#include "tft_lcd.h"
 
 void update_game(void)
 {
@@ -22,6 +23,7 @@ void update_game(void)
 
 	if (reset)
 	{
+		LCD_Clear(BLACK);
 		reset_game(ball, paddle, bricks);
 		draw_game(ball, paddle, bricks);
 		wait(3);
@@ -30,6 +32,9 @@ void update_game(void)
 
 	else
 	{
+		/* Erase ball and paddle */
+		erase_ball_paddle(ball, paddle);
+
 		/* Update position of the ball */
 		ball->x += ball->vx;
 		ball->y += ball->vy;

@@ -1,4 +1,5 @@
 #include "structures.h"
+#include "draw.h"
 
 
 void check_collisions_paddle(ball_t *ball, paddle_t *paddle) {
@@ -64,12 +65,13 @@ void check_collisions_blocks(ball_t *ball, brick_t **bricks, uint32_t n_bricks) 
 			/* Bottom collision */
 			if((ball->vy > 0) &&
 				(ball->y + ball->radius + ball->vy >= bricks[i]->y - bricks[i]->height) &&
-				(ball->y - ball->radius + ball->vy <= bricks[i]->y + bricks[i]->height) &&
-				(ball->x > bricks[i]->x - bricks[i]->length) &&
-				(ball->x < bricks[i]->x + bricks[i]->length))
+				(ball->y + ball->radius + ball->vy <= bricks[i]->y + bricks[i]->height) &&
+				(ball->x >= bricks[i]->x - bricks[i]->length) &&
+				(ball->x <= bricks[i]->x + bricks[i]->length))
 			{
 				bricks[i]->active = 0;
 				ball->vy = -ball->vy;
+				erase_brick(bricks[i]);
 				break;
 			}
 			#if 0
@@ -112,6 +114,6 @@ uint32_t check_collisions(ball_t *ball, paddle_t *paddle, brick_t **bricks, uint
 	check_collisions_paddle(ball, paddle);
 	uint32_t end = 0;
 	end = check_collisions_limits(ball);
-	//check_collisions_blocks(ball, bricks, n_bricks);
+	check_collisions_blocks(ball, bricks, n_bricks);
 	return end;
 }
