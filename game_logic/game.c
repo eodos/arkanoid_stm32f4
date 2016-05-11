@@ -34,6 +34,7 @@ void update_game(void)
 		draw_game(ball, paddle, bricks, score);
 		wait(3);
 		reset = 0;
+		score = 0;
 	}
 
 	else

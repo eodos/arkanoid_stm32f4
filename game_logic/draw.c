@@ -1,14 +1,18 @@
 #include "structures.h"
 #include "tft_lcd.h"
+#include <stdio.h>
 
 void draw_game(ball_t *ball, paddle_t *paddle, brick_t **bricks, uint32_t score)
 {
 	LCD_SetTextColor(GREEN);
 
 	/* Draw score  */
+	char buffer[5];
+	sprintf(buffer, "%lu", score);
+
 	LCD_DrawLine(0, UPPER_LIMIT, RIGHT_LIMIT, LCD_DIR_HORIZONTAL);
-	LCD_StringLine(10, 305, (uint8_t *) "SCORE");
-	//LCD_StringLine(50, 305, score);
+	LCD_StringLine(10, 10, (uint8_t *) "SCORE");
+	LCD_StringLine(60, 10, (uint8_t *) buffer);
 	
 	/* Draw ball */
 	LCD_DrawFullCircle(ball->x, ball->y, ball->radius);

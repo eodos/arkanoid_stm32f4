@@ -5,8 +5,8 @@
 
 #define LEFT_LIMIT 		0
 #define RIGHT_LIMIT		240
-#define LOWER_LIMIT		0
-#define UPPER_LIMIT		290
+#define LOWER_LIMIT		320
+#define UPPER_LIMIT		30
 
 #define N_BRICKS		18
 
