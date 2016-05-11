@@ -3,8 +3,7 @@
 #include "delay.h"
 #include "tft_lcd.h"
 #include "touch.h"
-
-
+#include "accelerometers.h"
 #include "timed_tasks.h"
 #include "game.h"
 
@@ -13,7 +12,7 @@ static void delay_ms(uint32_t n);
 static volatile uint32_t msTicks; // counts 1 ms timeTicks
 
 extern u8 gImage_sil[];
-void tft_example(void);
+//void tft_example(void);
 extern unsigned int xxx,yyy;
 extern unsigned char flag;
 
@@ -52,13 +51,17 @@ int main(void)
   initialise_monitor_handles();
   init_systick();
 
+  /* Initialize the accelerometers */
+  init_accelerometers();
+
+  /* Initialize the LCD and Touch modules */
   Delay(0x3FFFFF);
   LCD_Init();
   Delay(0x3FFFFF);
   touch_init();
 
+  /* Clear the LCD, set text color to green and backlight to 100 */
   LCD_Clear(BLACK);
-
   LCD_SetTextColor(GREEN);
   LCD_SetBackColor(LCD_COLOR_BLUE);
   LCD_BackLight(100);
@@ -76,10 +79,12 @@ int main(void)
     Pen_Point.X0=320;
   }*/
 
-  add_timed_task(update_game, 0.1);
+  /* Add update_game to the timed_task array */
+  add_timed_task(update_game, 0.05);
 
   while(1)
   {
+    /* Check if the timed task function has to be called */
     update();
 
 
@@ -122,13 +127,12 @@ int main(void)
 }
 
 
-void tft_example(void)
+/*void tft_example(void)
 {
   LCD_StringLine(100,30, "David");
   LCD_StringLine(85,45, "Paul Pena");
   LCD_StringLine(30,80, "NEW YORK UNIVERSITY");
   LCD_StringLine(45,170, "** 3.2' TFT LCD **");
   LCD_StringLine(45,190, "SSD1289 VE XPT2046 ");
-
-}
+}*/
 

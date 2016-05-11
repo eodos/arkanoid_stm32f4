@@ -11,7 +11,7 @@ void reset_game(ball_t *ball, paddle_t *paddle, brick_t **bricks)
 	paddle->x = RIGHT_LIMIT/2;
 	paddle->y = 50;
 	paddle->height = BRICK_HEIGHT;
-	paddle->length = BRICK_LENGTH*2;
+	paddle->length = PADDLE_LENGTH;
 
 	ball->radius = 3;
 	ball->x = paddle->x;

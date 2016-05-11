@@ -13,6 +13,8 @@
 #define BRICK_LENGTH	15
 #define	BRICK_HEIGHT	5
 
+#define PADDLE_LENGTH	30
+
 typedef struct {
 	uint8_t active;
 	uint32_t x;
@@ -31,8 +33,8 @@ typedef struct {
 typedef struct {
 	uint32_t x;
 	uint32_t y;
-	uint32_t vx;
-	uint32_t vy;
+	int32_t vx;
+	int32_t vy;
 	uint32_t radius;
 } ball_t;
 

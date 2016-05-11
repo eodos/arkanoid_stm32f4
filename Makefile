@@ -7,7 +7,12 @@ SRCS += $(LCD_SRCS)
 TOUCH_SRCS = TOUCH/touch.c
 SRCS += $(TOUCH_SRCS)
 
-GAME_SRCS = game_logic/collisions.c game_logic/init.c game_logic/draw.c game_logic/timed_tasks.c game_logic/game.c
+ACCELEROMETER_SRCS = accelerometers/tm_stm32f4_spi.c
+ACCELEROMETER_SRCS += accelerometers/tm_stm32f4_lis302dl_lis3dsh.c accelerometers/accelerometers.c
+SRCS += $(ACCELEROMETER_SRCS)
+
+GAME_SRCS = game_logic/collisions.c game_logic/init.c game_logic/draw.c game_logic/timed_tasks.c 
+GAME_SRCS += game_logic/paddle_movement.c game_logic/game.c
 SRCS += $(GAME_SRCS)
 
 # Binary will be generated with this name (with .elf filename extension)
@@ -52,6 +57,7 @@ CFLAGS += -I$(STM_COMMON)/Libraries/STM32F4xx_StdPeriph_Driver/inc
 CFLAGS += -I$(STM_COMMON)/Libraries/Device/STM32F4xx/Include
 CFLAGS += -I LCD
 CFLAGS += -I TOUCH
+CFLAGS += -I accelerometers
 CFLAGS += -I game_logic
 
 

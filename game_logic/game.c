@@ -1,8 +1,10 @@
+#include "game.h"
 #include "structures.h"
 #include "collisions.h"
 #include "init.h"
 #include "draw.h"
 #include "tft_lcd.h"
+#include "paddle_movement.h"
 
 void update_game(void)
 {
@@ -16,6 +18,7 @@ void update_game(void)
 
 	if (initialize)
 	{  
+		/* Allocate the structs, and jump to reset */
   		init_game(&ball, &paddle, bricks);
   		reset = 1;
   		initialize = 0;
@@ -23,6 +26,7 @@ void update_game(void)
 
 	if (reset)
 	{
+		/* Clear the screen, initialize the values of the struct and draw the game */
 		LCD_Clear(BLACK);
 		reset_game(ball, paddle, bricks);
 		draw_game(ball, paddle, bricks);
@@ -39,6 +43,9 @@ void update_game(void)
 		ball->x += ball->vx;
 		ball->y += ball->vy;
 
+		/* Update position of the paddle */
+		update_paddle_position(paddle);
+
 		/* Check collisions */
 		game_over = check_collisions(ball, paddle, bricks, N_BRICKS);
 
@@ -52,6 +59,7 @@ void update_game(void)
 		/* Detect if all the blocks have been destroyed */
 		/* TODO */
 
+		/* Draw the game */
 		draw_game(ball, paddle, bricks);
 	}
 }
