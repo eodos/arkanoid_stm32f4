@@ -35,9 +35,9 @@ uint32_t check_collisions_limits(ball_t *ball) {
 	return 0;
 }
 
-void check_collisions_blocks(ball_t *ball, brick_t **bricks, uint32_t n_bricks) {
+void check_collisions_blocks(ball_t *ball, brick_t **bricks, uint32_t *score) {
 	uint32_t i;
-	for(i=0; i<n_bricks; i++)
+	for(i=0; i<N_BRICKS; i++)
 	{
 		if(bricks[i]->active)
 		{
@@ -104,6 +104,7 @@ void check_collisions_blocks(ball_t *ball, brick_t **bricks, uint32_t n_bricks) 
 
 				bricks[i]->active = 0;
 				erase_brick(bricks[i]);
+				*score += 10;
 				break;
 			}
 	
@@ -111,10 +112,10 @@ void check_collisions_blocks(ball_t *ball, brick_t **bricks, uint32_t n_bricks) 
 	}
 }
 
-uint32_t check_collisions(ball_t *ball, paddle_t *paddle, brick_t **bricks, uint32_t n_bricks) {
+uint32_t check_collisions(ball_t *ball, paddle_t *paddle, brick_t **bricks, uint32_t *score) {
 	check_collisions_paddle(ball, paddle);
 	uint32_t end = 0;
 	end = check_collisions_limits(ball);
-	check_collisions_blocks(ball, bricks, n_bricks);
+	check_collisions_blocks(ball, bricks, score);
 	return end;
 }

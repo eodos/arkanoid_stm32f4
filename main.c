@@ -63,7 +63,7 @@ int main(void)
   /* Clear the LCD, set text color to green and backlight to 100 */
   LCD_Clear(BLACK);
   LCD_SetTextColor(GREEN);
-  LCD_SetBackColor(LCD_COLOR_BLUE);
+  LCD_SetBackColor(LCD_COLOR_BLACK);
   LCD_BackLight(100);
 
 

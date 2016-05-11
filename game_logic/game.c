@@ -16,6 +16,8 @@ void update_game(void)
 	static uint32_t initialize = 1;
 	static uint32_t reset = 0;
 
+	static uint32_t score = 0;
+
 	if (initialize)
 	{  
 		/* Allocate the structs, and jump to reset */
@@ -29,7 +31,7 @@ void update_game(void)
 		/* Clear the screen, initialize the values of the struct and draw the game */
 		LCD_Clear(BLACK);
 		reset_game(ball, paddle, bricks);
-		draw_game(ball, paddle, bricks);
+		draw_game(ball, paddle, bricks, score);
 		wait(3);
 		reset = 0;
 	}
@@ -47,7 +49,7 @@ void update_game(void)
 		update_paddle_position(paddle);
 
 		/* Check collisions */
-		game_over = check_collisions(ball, paddle, bricks, N_BRICKS);
+		game_over = check_collisions(ball, paddle, bricks, &score);
 
 		if (game_over)
 		{
@@ -60,6 +62,6 @@ void update_game(void)
 		/* TODO */
 
 		/* Draw the game */
-		draw_game(ball, paddle, bricks);
+		draw_game(ball, paddle, bricks, score);
 	}
 }
