@@ -61,7 +61,7 @@ void check_collisions_blocks(ball_t *ball, brick_t **bricks, uint32_t n_bricks) 
 				ball->vx = -ball->vx;
 				break;
 			}
-#endif
+
 			/* Bottom collision */
 			if((ball->vy > 0) &&
 				(ball->y + ball->radius + ball->vy >= bricks[i]->y - bricks[i]->height) &&
@@ -74,7 +74,7 @@ void check_collisions_blocks(ball_t *ball, brick_t **bricks, uint32_t n_bricks) 
 				erase_brick(bricks[i]);
 				break;
 			}
-			#if 0
+
 
 			/* Top collision */
 			else if((ball->y - ball->radius == bricks[i]->y + bricks[i]->height) &&
@@ -86,26 +86,27 @@ void check_collisions_blocks(ball_t *ball, brick_t **bricks, uint32_t n_bricks) 
 				break;
 			}
 			#endif
-#if 0
+
 			if((ball->x + ball->vx + ball->radius >= bricks[i]->x - bricks[i]->length) &&
 				((ball->x + ball->vx - ball->radius <= bricks[i]->x + bricks[i]->length)) &&
 				((ball->y + ball->vy + ball->radius >= bricks[i]->y - bricks[i]->height)) &&
 				((ball->y + ball->vy - ball->radius <= bricks[i]->y + bricks[i]->height)))
 			{
-				if((ball->x <= bricks[i]->x - bricks[i]->height) ||
-					(ball->x >= bricks[i]->x + bricks[i]->height))
-				{
-					ball->vy = -ball->vy;
-				}
-				else
+				if((ball->y <= bricks[i]->y - bricks[i]->length) ||
+					(ball->y >= bricks[i]->y + bricks[i]->length))
 				{
 					ball->vx = -ball->vx;
 				}
+				else
+				{
+					ball->vy = -ball->vy;
+				}
 
 				bricks[i]->active = 0;
+				erase_brick(bricks[i]);
 				break;
 			}
-			#endif
+	
 		}
 	}
 }

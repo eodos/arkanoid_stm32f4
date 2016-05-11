@@ -8,12 +8,13 @@
 #define LOWER_LIMIT		0
 #define UPPER_LIMIT		320
 
-#define N_BRICKS		21
+#define N_BRICKS		18
 
 #define BRICK_LENGTH	15
-#define	BRICK_HEIGHT	5
+#define	BRICK_HEIGHT	7
 
 #define PADDLE_LENGTH	30
+#define PADDLE_HEIGHT	5
 
 typedef struct {
 	uint8_t active;

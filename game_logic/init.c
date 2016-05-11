@@ -6,11 +6,11 @@ void reset_game(ball_t *ball, paddle_t *paddle, brick_t **bricks)
 	uint32_t i;
 
 	uint32_t brick_y = 220;
-	uint32_t brick_x = BRICK_LENGTH + 8;
+	uint32_t brick_x = BRICK_LENGTH + 15;
 
 	paddle->x = RIGHT_LIMIT/2;
 	paddle->y = 50;
-	paddle->height = BRICK_HEIGHT;
+	paddle->height = PADDLE_HEIGHT;
 	paddle->length = PADDLE_LENGTH;
 
 	ball->radius = 3;
@@ -26,10 +26,10 @@ void reset_game(ball_t *ball, paddle_t *paddle, brick_t **bricks)
 		bricks[i]->length = BRICK_LENGTH;
 		bricks[i]->y = brick_y;
 		bricks[i]->x = brick_x;
-		brick_x += bricks[i]->length * 2 + 2;
-		if(brick_x + bricks[i]->length > RIGHT_LIMIT)
+		brick_x += bricks[i]->length * 2 + 5;
+		if(brick_x + bricks[i]->length > RIGHT_LIMIT - 15)
 		{
-			brick_x = BRICK_LENGTH + 8;
+			brick_x = BRICK_LENGTH + 15;
 			brick_y += bricks[i]->height * 2 + 2;
 		}
 	}
