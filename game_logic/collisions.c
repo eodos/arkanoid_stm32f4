@@ -21,10 +21,10 @@ uint32_t check_collisions_limits(ball_t *ball) {
 	else if(ball->x + ball->radius + ball->vx >= RIGHT_LIMIT)
 		/* Collision with right border, change x velocity */
 		ball->vx = -ball->vx;
-	else if(ball->y + ball->radius + ball->vy <= UPPER_LIMIT + 1)
+	else if(ball->y - ball->radius + ball->vy <= UPPER_LIMIT)
 		/* Collision with upper border, change y velocity */
 		ball->vy = -ball->vy;
-	else if(ball->y - ball->radius + ball->vy >= LOWER_LIMIT - 3)
+	else if(ball->y + ball->radius + ball->vy >= LOWER_LIMIT)
 	{
 		/* Collision with lower limit, return 1 */
 		ball->vx = 0;
@@ -35,58 +35,12 @@ uint32_t check_collisions_limits(ball_t *ball) {
 	return 0;
 }
 
-void check_collisions_blocks(ball_t *ball, brick_t **bricks, uint32_t *score) {
+void check_collisions_blocks(ball_t *ball, brick_t **bricks, uint32_t *score, uint32_t *n_bricks_active) {
 	uint32_t i;
 	for(i=0; i<N_BRICKS; i++)
 	{
 		if(bricks[i]->active)
 		{
-			#if 0
-			/* Left side collision */
-			if((ball->x + ball->radius == bricks[i]->x - bricks[i]->length) && 
-				(ball->y > bricks[i]->y - bricks[i]->height) && 
-				(ball->y < bricks[i]->y + bricks[i]->height))
-			{
-				bricks[i]->active = 0;
-				ball->vx = -ball->vx;
-				break;
-			}
-
-			/* Right side collision */
-			else if((ball->x - ball->radius == bricks[i]->x + bricks[i]->length) &&
-				(ball->y > bricks[i]->y - bricks[i]->height) && 
-				(ball->y < bricks[i]->y + bricks[i]->height))
-			{
-				bricks[i]->active = 0;
-				ball->vx = -ball->vx;
-				break;
-			}
-
-			/* Bottom collision */
-			if((ball->vy > 0) &&
-				(ball->y + ball->radius + ball->vy >= bricks[i]->y - bricks[i]->height) &&
-				(ball->y + ball->radius + ball->vy <= bricks[i]->y + bricks[i]->height) &&
-				(ball->x >= bricks[i]->x - bricks[i]->length) &&
-				(ball->x <= bricks[i]->x + bricks[i]->length))
-			{
-				bricks[i]->active = 0;
-				ball->vy = -ball->vy;
-				erase_brick(bricks[i]);
-				break;
-			}
-
-
-			/* Top collision */
-			else if((ball->y - ball->radius == bricks[i]->y + bricks[i]->height) &&
-				(ball->x > bricks[i]->x - bricks[i]->length) &&
-				(ball->x < bricks[i]->x + bricks[i]->length))
-			{
-				bricks[i]->active = 0;
-				ball->vy = -ball->vy;
-				break;
-			}
-			#endif
-
 			if((ball->x + ball->vx + ball->radius >= bricks[i]->x - bricks[i]->length) &&
 				((ball->x + ball->vx - ball->radius <= bricks[i]->x + bricks[i]->length)) &&
 				((ball->y + ball->vy + ball->radius >= bricks[i]->y - bricks[i]->height)) &&
@@ -103,19 +57,20 @@ void check_collisions_blocks(ball_t *ball, brick_t **bricks, uint32_t *score) {
 				}
 
 				bricks[i]->active = 0;
+				*n_bricks_active--;
 				erase_brick(bricks[i]);
 				*score += 10;
+				draw_score(*score);
 				break;
 			}
-	
 		}
 	}
 }
 
-uint32_t check_collisions(ball_t *ball, paddle_t *paddle, brick_t **bricks, uint32_t *score) {
+uint32_t check_collisions(ball_t *ball, paddle_t *paddle, brick_t **bricks, uint32_t *score, uint32_t *n_bricks_active) {
 	check_collisions_paddle(ball, paddle);
 	uint32_t end = 0;
 	end = check_collisions_limits(ball);
-	check_collisions_blocks(ball, bricks, score);
+	check_collisions_blocks(ball, bricks, score, n_bricks_active);
 	return end;
 }

@@ -18,6 +18,8 @@ void update_game(void)
 
 	static uint32_t score = 0;
 
+	static uint32_t n_bricks_active = N_BRICKS;
+
 	if (initialize)
 	{  
 		/* Allocate the structs, and jump to reset */
@@ -31,16 +33,17 @@ void update_game(void)
 		/* Clear the screen, initialize the values of the struct and draw the game */
 		LCD_Clear(BLACK);
 		reset_game(ball, paddle, bricks);
-		draw_game(ball, paddle, bricks, score);
+		draw_all_game(ball, paddle, bricks, score);
 		wait(3);
 		reset = 0;
 		score = 0;
+		n_bricks_active = N_BRICKS;
 	}
 
 	else
 	{
 		/* Erase ball and paddle */
-		erase_ball_paddle(ball, paddle);
+		draw_ball_paddle(ball, paddle, BLACK);
 
 		/* Update position of the ball */
 		ball->x += ball->vx;
@@ -50,7 +53,7 @@ void update_game(void)
 		update_paddle_position(paddle);
 
 		/* Check collisions */
-		game_over = check_collisions(ball, paddle, bricks, &score);
+		game_over = check_collisions(ball, paddle, bricks, &score, &n_bricks_active);
 
 		if (game_over)
 		{
@@ -60,9 +63,14 @@ void update_game(void)
 		}
 
 		/* Detect if all the blocks have been destroyed */
-		/* TODO */
+		if (n_bricks_active == 0)
+		{
+			draw_win_screen();
+			wait(1);
+			reset = 1;
+		}
 
 		/* Draw the game */
-		draw_game(ball, paddle, bricks, score);
+		draw_ball_paddle(ball, paddle, GREEN);
 	}
 }

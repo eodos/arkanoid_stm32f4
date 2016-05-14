@@ -29,7 +29,7 @@ float get_time()
 // initialize the system tick
 void init_systick(void)
 {
-	SystemCoreClockUpdate();                      /* Get Core Clock Frequency   */
+  SystemCoreClockUpdate();                      /* Get Core Clock Frequency   */
   if (SysTick_Config(SystemCoreClock / 1000)) { /* SysTick 1 msec interrupts  */
     while (1);                                  /* Capture error              */
   }
