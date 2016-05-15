@@ -33,10 +33,10 @@ void update_game(void)
 		/* Clear the screen, initialize the values of the struct and draw the game */
 		LCD_Clear(BLACK);
 		reset_game(ball, paddle, bricks);
+		score = 0;
 		draw_all_game(ball, paddle, bricks, score);
 		wait(3);
 		reset = 0;
-		score = 0;
 		n_bricks_active = N_BRICKS;
 	}
 

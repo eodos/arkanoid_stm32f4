@@ -5,6 +5,7 @@ void check_collisions_paddle(ball_t *ball, paddle_t *paddle) {
 	/* Check collision with the paddle only if the ball is moving to the bottom of the screen */
 	if ((ball->vy > 0) &&
 		(ball->y + ball->radius + ball->vy >= paddle->y - paddle->height) &&
+		(ball->y + ball->radius + ball->vy <= paddle->y + paddle->height) &&
 		(ball->x >= paddle->x - paddle->length) &&
 		(ball->x <= paddle->x + paddle->length))
 	{
