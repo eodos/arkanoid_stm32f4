@@ -38,7 +38,17 @@ void draw_win_screen(void)
 	LCD_StringLine(100, 150, (uint8_t *) "WIN!");
 }
 
-void draw_all_game(ball_t *ball, paddle_t *paddle, brick_t **bricks, uint32_t score)
+void draw_sensibility(uint32_t sensibility)
+{
+	LCD_SetTextColor(BLACK);
+	LCD_DrawFullRect(180, 10, 17, 15);
+	LCD_SetTextColor(GREEN);
+	char buffer[5];
+	sprintf(buffer, "%lu", sensibility);
+	LCD_StringLine(180, 10, (uint8_t *) buffer);
+}
+
+void draw_all_game(ball_t *ball, paddle_t *paddle, brick_t **bricks, uint32_t score, uint32_t sensibility)
 {
 	LCD_SetTextColor(GREEN);
 
@@ -47,6 +57,10 @@ void draw_all_game(ball_t *ball, paddle_t *paddle, brick_t **bricks, uint32_t sc
 	draw_score(score);
 	LCD_DrawLine(0, UPPER_LIMIT, RIGHT_LIMIT, LCD_DIR_HORIZONTAL);
 
+	/* Draw sensibility controls */
+	LCD_StringLine(160, 10, (uint8_t *) "-");
+	draw_sensibility(sensibility);
+	LCD_StringLine(200, 10, (uint8_t *) "+");
 	
 	/* Draw ball */
 	LCD_DrawFullCircle(ball->x, ball->y, ball->radius);

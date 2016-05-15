@@ -12,6 +12,6 @@ typedef struct
 	float z;
 }Accdata;
 
-void update_paddle_position(paddle_t *paddle);
+void update_paddle_position(paddle_t *paddle, uint32_t sensibility);
 
 #endif /* PADDLE_MOVEMENT_H */

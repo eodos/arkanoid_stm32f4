@@ -1,4 +1,6 @@
 #include "touch.h"
+#include "draw.h"
+#include "touch_management.h"
 
 void get_position(void)
 {
@@ -22,38 +24,27 @@ uint32_t check_start_game(void)
     return 0;
 }
 
-#if 0
-    Convert_Pos();
+void check_sensibility_control_input(uint32_t *sensibility)
+{
+	get_position();
 
-    if ((Pen_Point.X0>180) && (Pen_Point.X0<210) && ( Pen_Point.Y0>304) && ( Pen_Point.Y0<320))
-    {
-      LCD_Clear(LCD_COLOR_MAGENTA);
-      LCD_SetBackColor(GREEN);
-      LCD_SetTextColor(CYAN);
-      LCD_StringLine(215,300,"SIL");
-      LCD_StringLine(172,300,"YENI");
-      goto DON ;
-    }
-
-    if ((Pen_Point.X0>220) && (Pen_Point.X0<239) && (Pen_Point.Y0>304)&&(Pen_Point.Y0<320))
-    {
-
-      LCD_Clear(RED);
-      LCD_BackLight(100);
-
-      LCD_SetBackColor(GREEN);
-      LCD_SetTextColor(CYAN);
-      LCD_StringLine(215,300,"SIL");
-      LCD_StringLine(172,300,"YENI");
-
-      goto DON;
-    }
-
-    if ((Pen_Point.X0>0) && (Pen_Point.Y0>0))
-    {
-      Pixel(Pen_Point.X0,Pen_Point.Y0,YELLOW);
-      Pixel(Pen_Point.X0,Pen_Point.Y0+1,YELLOW);
-      Pixel(Pen_Point.X0+1,Pen_Point.Y0,YELLOW);
-      Pixel(Pen_Point.X0+1,Pen_Point.Y0+1,YELLOW);
-    }
-#endif
+	if ((Pen_Point.Y0 > 0) && (Pen_Point.Y0 < 20))
+	{
+		if ((Pen_Point.X0 > 150) && (Pen_Point.X0 < 175))
+		{
+			if (*sensibility > 1)
+			{
+				*sensibility -= 1;
+				draw_sensibility(*sensibility);
+			}
+		}
+		else if ((Pen_Point.X0 > 190) && (Pen_Point.X0 < 215))
+		{
+			if (*sensibility < 3)
+			{
+				*sensibility += 1;
+				draw_sensibility(*sensibility);
+			}
+		}
+	}
+}

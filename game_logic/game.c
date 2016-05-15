@@ -16,10 +16,15 @@ void update_game(void)
   	static uint32_t game_over = 0;
 	static uint32_t initialize = 1;
 	static uint32_t reset = 0;
+	static uint32_t waiting_to_start = 0;
 
 	static uint32_t score = 0;
+	static uint32_t sensibility = 1;
 
 	static uint32_t n_bricks_active = N_BRICKS;
+
+	/* Check sensibility control input */
+	check_sensibility_control_input(&sensibility);
 
 	if (initialize)
 	{  
@@ -29,16 +34,21 @@ void update_game(void)
   		initialize = 0;
 	}
 
-	if (reset)
+	else if (reset)
 	{
 		/* Clear the screen, initialize the values of the struct and draw the game */
 		LCD_Clear(BLACK);
 		reset_game(ball, paddle, bricks);
 		score = 0;
-		draw_all_game(ball, paddle, bricks, score);
-		while (!check_start_game());
-		reset = 0;
 		n_bricks_active = N_BRICKS;
+		reset = 0;
+		waiting_to_start = 1;
+		draw_all_game(ball, paddle, bricks, score, sensibility);
+	}
+
+	else if (waiting_to_start)
+	{
+		if (check_start_game())	waiting_to_start = 0;
 	}
 
 	else
@@ -51,7 +61,7 @@ void update_game(void)
 		ball->y += ball->vy;
 
 		/* Update position of the paddle */
-		update_paddle_position(paddle);
+		update_paddle_position(paddle, sensibility);
 
 		/* Check collisions */
 		game_over = check_collisions(ball, paddle, bricks, &score, &n_bricks_active);

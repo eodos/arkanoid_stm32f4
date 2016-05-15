@@ -40,7 +40,7 @@ void crop(paddle_t *paddle)
     if (paddle->x > RIGHT_LIMIT - PADDLE_LENGTH - 1) paddle->x = RIGHT_LIMIT - PADDLE_LENGTH - 1;
     if (paddle->x < LEFT_LIMIT + PADDLE_LENGTH + 1)  paddle->x = LEFT_LIMIT + PADDLE_LENGTH + 1;
 }
-void update_paddle_position(paddle_t *paddle)
+void update_paddle_position(paddle_t *paddle, uint32_t sensibility)
 {
     float a[3];
     float pitch, roll;
@@ -58,7 +58,7 @@ void update_paddle_position(paddle_t *paddle)
     calc_pitch_roll(Avg.x, Avg.y, Avg.z, &pitch, &roll);
 
     /* Compute the paddle position increment */
-    float increment = (pitch * pitch * pitch / 7000);
+    float increment = ((sensibility+1)/2 * pitch * pitch * pitch / 7000);
 
     /* Update paddle position */
     paddle->x -= increment;
