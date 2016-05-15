@@ -12,7 +12,7 @@ ACCELEROMETER_SRCS += accelerometers/tm_stm32f4_lis302dl_lis3dsh.c accelerometer
 SRCS += $(ACCELEROMETER_SRCS)
 
 GAME_SRCS = game_logic/collisions.c game_logic/init.c game_logic/draw.c game_logic/timed_tasks.c 
-GAME_SRCS += game_logic/paddle_movement.c game_logic/game.c
+GAME_SRCS += game_logic/paddle_movement.c game_logic/game.c game_logic/touch_management.c
 SRCS += $(GAME_SRCS)
 
 # Binary will be generated with this name (with .elf filename extension)

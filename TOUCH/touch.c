@@ -249,6 +249,7 @@ void Drow_Touch_Point(uint16_t x,uint16_t y)
 	Pixel(x-1,y-1,BLUE);
 	LCD_DrawCircle(x,y,6);
 }
+
 void Draw_Big_Point(uint16_t x,uint16_t y)
 {
 	Pixel(x,y,BLUE);
@@ -256,19 +257,20 @@ void Draw_Big_Point(uint16_t x,uint16_t y)
 	Pixel(x,y+1,BLUE);
 	Pixel(x+1,y+1,BLUE);
 }
-   void Convert_Pos(void)
+
+void Convert_Pos(void)
 {
-               Read_Ads7846();
-               Pen_Point.X0=(int)((Pen_Point.Y-103)/7.666666667);
-               Pen_Point.Y0=(int)((Pen_Point.X-104)/5.609375);
-               if(Pen_Point.X0>240)
-               {
-                 Pen_Point.X0=240;
-               }
-               if(Pen_Point.Y0>320)
-               {
-                 Pen_Point.X0=320;
-               }
+  Read_Ads7846();
+  Pen_Point.X0=(int)((Pen_Point.Y-103)/7.666666667);
+  Pen_Point.Y0=(int)((Pen_Point.X-104)/5.609375);
+  if(Pen_Point.X0>240)
+  {
+    Pen_Point.X0=240;
+  }
+  if(Pen_Point.Y0>320)
+  {
+    Pen_Point.X0=320;
+  }
 
 }
 

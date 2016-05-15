@@ -5,6 +5,7 @@
 #include "draw.h"
 #include "tft_lcd.h"
 #include "paddle_movement.h"
+#include "touch_management.h"
 
 void update_game(void)
 {
@@ -35,7 +36,7 @@ void update_game(void)
 		reset_game(ball, paddle, bricks);
 		score = 0;
 		draw_all_game(ball, paddle, bricks, score);
-		wait(3);
+		while (!check_start_game());
 		reset = 0;
 		n_bricks_active = N_BRICKS;
 	}
